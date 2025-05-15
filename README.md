@@ -35,3 +35,40 @@ APP_NAME=Calculator
 DEBUG=False
 VERSION=1.0
 ```
+
+## How to Run Using Docker
+
+To run this FastAPI calculator app using Docker, follow these steps:
+
+1. Prerequisites
+   Install Docker on your machine.
+
+2. Build the Docker Image
+   bash
+   Copy
+   Edit
+   docker build -t fastapi-calculator .
+3. Run the Docker Container
+   bash
+   Copy
+   Edit
+   docker run -d -p 8000:8000 fastapi-calculator
+4. Access the API
+   Once the container is running, open your browser and go to:
+
+arduino
+Copy
+Edit
+http://localhost:8000
+You can view the interactive Swagger docs at:
+
+bash
+Copy
+Edit
+http://localhost:8000/docs
+And the ReDoc documentation at:
+
+bash
+Copy
+Edit
+http://localhost:8000/redoc
