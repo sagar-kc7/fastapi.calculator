@@ -1,20 +1,13 @@
-name: Deploy MkDocs to GitHub Pages
+name: CI
 
 on:
   push:
     branches: [main]
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  pull_request:
+    branches: [main]
 
 jobs:
-  build:
+  test:
     runs-on: ubuntu-latest
 
     strategy:
@@ -29,25 +22,11 @@ jobs:
         with:
           python-version: ${{ matrix.python-version }}
 
-      - name: Install MkDocs
+      - name: Install dependencies
         run: |
-          pip install mkdocs mkdocs-material
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
 
-      - name: Build MkDocs site
-        run: mkdocs build
-
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v2
-        with:
-          path: site
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+      - name: Run tests
+        run: |
+          pytest --maxfail=1 --disable-warnings -q
