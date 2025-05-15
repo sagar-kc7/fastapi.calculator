@@ -1,0 +1,9 @@
+site_name: FastAPI Calculator
+
+theme:
+  name: material
+
+nav:
+  - Home: index.md
+  - GitHub Repo: github.md
+  - Run with Docker: docker.md
